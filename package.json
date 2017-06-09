@@ -17,7 +17,7 @@
     "ecc"
   ],
   "author": "Alver Lyu",
-  "license": "",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/AlverLyu/sm.js/issues"
   },
