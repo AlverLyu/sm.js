@@ -1,6 +1,6 @@
 {
   "name": "sm.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SM series cryptography in javascript implementation",
   "main": "index.js",
   "scripts": {
