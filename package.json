@@ -1,11 +1,11 @@
 {
   "name": "sm.js",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "SM series cryptography in javascript implementation",
   "main": "index.js",
   "scripts": {
     "test": "",
-    "dist": "browserify index.js > dist/sm.js",
+    "dist": "browserify -r ./index.js:sm.js > dist/sm.js",
     "postdist": "uglifyjs -mc -o dist/sm.min.js dist/sm.js",
     "prepublish": "npm run dist"
   },
