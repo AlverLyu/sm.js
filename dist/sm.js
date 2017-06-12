@@ -9564,7 +9564,7 @@ utils.encode = function encode(arr, enc) {
 },{}],32:[function(require,module,exports){
 module.exports={
   "name": "sm.js",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "SM series cryptography in javascript implementation",
   "main": "index.js",
   "scripts": {
