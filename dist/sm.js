@@ -123,6 +123,11 @@ function SM2KeyPair(pub, pri) {
     } else {
       throw 'invalid private key';
     }
+
+    // calculate public key
+    if (this.pub == null) {
+      this.pub = SM2.g.mul(this.pri);
+    }
   }
 
   if (!(validPub && validPri) && !this.validate()) {
@@ -142,11 +147,9 @@ exports.genKeyPair = function _genKeyPair() {
     pri = new BN(_drbg.generate(32, 'hex', Math.random().toString(), 'number'));
   } while (pri.cmp(limit) > 0);
 
-  // calculate public key
-  pub = SM2.g.mul(pri);
-
-  return new SM2KeyPair(pub, pri);
+  return new SM2KeyPair(null, pri);
 }
+
 
 /**
  * @private
@@ -9590,7 +9593,7 @@ utils.encode = function encode(arr, enc) {
 },{}],32:[function(require,module,exports){
 module.exports={
   "name": "sm.js",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "SM series cryptography in javascript implementation",
   "main": "index.js",
   "scripts": {
