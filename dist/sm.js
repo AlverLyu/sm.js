@@ -48,8 +48,8 @@ var _sm2Params = {
 
 }
 
-exports.curve = SM2 = SM2Curve(_sm2Params);
-
+var SM2 = SM2Curve(_sm2Params);
+exports.curve = SM2;
 
 /**
  * Return a point on the curve.
@@ -441,11 +441,11 @@ var encryptMode = {
   c1c3c2: 0,
   c1c2c3: 1
 }
-SM2KeyPair.prototype.encryptMode
-exports.encryptMode = encryptMode
+SM2KeyPair.prototype.encryptMode = encryptMode;
+exports.encryptMode = encryptMode;
 
 SM2KeyPair.prototype.encrypt = function(msg, enc, mode) {
-  mode = mode === undefined ? encryptMode.c1c3c2 : mode
+  mode = mode === undefined ? encryptMode.c1c3c2 : mode;
   if (typeof msg === "string") {
     if (enc === "hex") {
       msg = utils.hexToBytes(msg);
@@ -460,16 +460,16 @@ SM2KeyPair.prototype.encrypt = function(msg, enc, mode) {
 
   var p2;
   while (true) {
-    var temp = exports.genKeyPair()
-    var k = temp.pri
-    var pb = temp.pub
+    var temp = exports.genKeyPair();
+    var k = temp.pri;
+    var pb = temp.pub;
     var c1 = pb.getX().toArray("be", 32).concat(pb.getY().toArray("be", 32));
 
-    var s = this.pub.mul(this.curve.h)
+    var s = this.pub.mul(this.curve.h);
     if (s === 0) {
       return null;
     }
-    p2 = this.pub.mul(k)
+    p2 = this.pub.mul(k);
 
     var ct = 1;
     var keyOff = 0;
@@ -498,7 +498,7 @@ SM2KeyPair.prototype.encrypt = function(msg, enc, mode) {
   sm3c3.write(y);
   var c3 = sm3c3.sum();
 
-  var encData
+  var encData;
   if (mode === encryptMode.c1c2c3) {
     encData = c1.concat(c2, c3);
   } else if (mode === encryptMode.c1c3c2) {
@@ -603,10 +603,9 @@ SM2KeyPair.prototype._combine = function(msg) {
   za = za.concat(this.pub.getX().toArray());
   za = za.concat(this.pub.getY().toArray());
 
-  h = new sm3();
+  var h = new sm3();
   za = h.sum(za);
 
-  console.log(za.join())
   if (typeof msg === 'string')
     return za.concat(utils.strToBytes(msg))
   else
@@ -628,7 +627,6 @@ SM2KeyPair.prototype.toString = function() {
   }
   return s;
 }
-
 
 },{"./sm3":2,"./utils":3,"bn.js":4,"elliptic":6,"hash.js":22,"hmac-drbg":34,"inherits":35}],2:[function(require,module,exports){
 /**
@@ -722,7 +720,7 @@ SM3.prototype.sum = function(msg, enc) {
   } else {
     var digest = new Array(32);
     for (var i = 0; i < 8; i++) {
-      h = this.reg[i];
+      var h = this.reg[i];
       digest[i*4+3] = (h & 0xff) >>> 0;
       h >>>= 8;
       digest[i*4+2] = (h & 0xff) >>> 0;
@@ -806,7 +804,7 @@ function _expand(b) {
   }
 
   for (var j = 16; j < 68; j++) {
-    x = w[j-16] ^ w[j-9] ^ _rotl(w[j-3], 15);
+    var x = w[j-16] ^ w[j-9] ^ _rotl(w[j-3], 15);
     x = x ^ _rotl(x, 15) ^ _rotl(x, 23);
     w[j] = (x ^ _rotl(w[j-13], 7) ^ w[j-6]) >>> 0;
   }
@@ -925,7 +923,16 @@ function padStart(str, length, padChar) {
  * @param {Number} n: byte length of the generated value
  */
 function random(n) {
-  return crypto.randomBytes(n).toString('hex')
+  try {
+    return crypto.randomBytes(n).toString('hex');
+  } catch (e) {
+    // crypto.randomBytes may unavailable in some browsers
+    var randomArr = new Array(n);
+    for (var i = 0; i < n; i++) {
+      randomArr[i] = Math.floor(Math.random() * 256);
+    }
+    return  randomArr
+  }
 }
 
 function hexToBytes(hex) {
