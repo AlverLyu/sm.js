@@ -12,7 +12,7 @@ Reference repos:
 
 [https://github.com/pecliu/gm-crypt](https://github.com/pecliu/gm-crypt)
 
-**Currently code needs refactor because the codes are come from three repos，but the function of this repo is complete. I'm going to refactor it using Buffer**
+**Currently code needs refactor because the codes are come from three repos，but the function of this repo is complete. I'm going to refactor it using Buffer.**
 
 ## Usage 
 
