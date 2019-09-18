@@ -1,6 +1,6 @@
 {
   "name": "sm-series-crypto",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "SM series cryptography in javascript implementation",
   "main": "index.js",
   "scripts": {
